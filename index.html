@@ -8,7 +8,6 @@
 
   <style>
     :root {
-      /* Matches your existing scorer look & feel */
       --bg: #050816;
       --bg-soft: #0c1224;
       --card: #111827;
@@ -18,7 +17,6 @@
       --text-main: #f9fafb;
       --text-muted: #9ca3af;
       --border-subtle: #1f2933;
-      --winner-glow: 0 0 0 2px rgba(52, 211, 153, 0.7);
 
       --radius: 18px;
       --shadow: 0 16px 40px rgba(0,0,0,0.35);
@@ -36,10 +34,8 @@
         radial-gradient(1000px 650px at 85% 15%, rgba(56,189,248,0.12), transparent 55%),
         radial-gradient(900px 600px at 40% 110%, rgba(34,197,94,0.10), transparent 55%),
         linear-gradient(180deg, var(--bg), var(--bg-soft));
-      overflow-x: hidden;
     }
 
-    /* Safe-area handling for Android/iOS notches/status bars */
     .safe {
       padding-top: max(14px, env(safe-area-inset-top));
       padding-bottom: max(14px, env(safe-area-inset-bottom));
@@ -59,7 +55,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding: 14px 14px;
+      padding: 14px;
       border: 1px solid var(--border-subtle);
       background: rgba(17, 24, 39, 0.72);
       backdrop-filter: blur(10px);
@@ -70,62 +66,172 @@
       z-index: 10;
     }
 
-    .brand {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 0;
-    }
-
     .brand h1 {
       margin: 0;
       font-size: 18px;
-      line-height: 1.1;
       letter-spacing: 0.2px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .brand p {
       margin: 0;
-      color: var(--text-muted);
       font-size: 13px;
-      line-height: 1.2;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-shrink: 0;
+      color: var(--text-muted);
     }
 
     .btn {
-      appearance: none;
       border: 1px solid var(--border-subtle);
-      background: linear-gradient(180deg, rgba(31,41,55,0.92), rgba(17,24,39,0.92));
+      background: linear-gradient(180deg, rgba(249,115,22,0.22), rgba(17,24,39,0.92));
       color: var(--text-main);
       padding: 10px 12px;
       border-radius: 14px;
       font-weight: 650;
-      font-size: 13px;
-      letter-spacing: 0.2px;
       cursor: pointer;
-      box-shadow: 0 10px 22px rgba(0,0,0,0.25);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      user-select: none;
-      touch-action: manipulation;
     }
 
-    .btn:hover { border-color: rgba(249,115,22,0.55); }
-    .btn:active { transform: translateY(1px); }
-    .btn:focus-visible {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(249,115,22,0.25), 0 10px 22px rgba(0,0,0,0.25);
-      border-color: r
+    .content {
+      margin-top: 16px;
+    }
+
+    .panel {
+      border: 1px solid var(--border-subtle);
+      background: rgba(17, 24, 39, 0.72);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+
+    .panel h2 {
+      margin: 0 0 12px;
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    @media (min-width: 720px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (min-width: 980px) {
+      .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    .card {
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(31,41,55,0.85), rgba(17,24,39,0.85));
+      box-shadow: 0 16px 30px rgba(0,0,0,0.25);
+      padding: 18px 14px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background:
+        radial-gradient(700px 140px at 15% 20%, rgba(249,115,22,0.20), transparent 60%),
+        radial-gradient(700px 160px at 85% 80%, rgba(56,189,248,0.10), transparent 55%);
+      pointer-events: none;
+    }
+
+    .card:hover { border-color: rgba(249,115,22,0.55); }
+
+    .name {
+      position: relative;
+      z-index: 1;
+      font-size: 16px;
+      font-weight: 750;
+      letter-spacing: 0.2px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="safe">
+    <div class="wrap">
+
+      <header class="topbar">
+        <div class="brand">
+          <h1>Scorekeeper Hub</h1>
+          <p>Select a scorer to start a game</p>
+        </div>
+        <button id="reloadBtn" class="btn">⟳ Reload</button>
+      </header>
+
+      <main class="content">
+        <section class="panel">
+          <h2>Available Scorers</h2>
+          <div id="grid" class="grid"></div>
+        </section>
+      </main>
+
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const CONFIG_URL = "./scorers.json";
+      const grid = document.getElementById("grid");
+      const reloadBtn = document.getElementById("reloadBtn");
+
+      reloadBtn.addEventListener("click", () => loadScorers(true));
+
+      function clearGrid() {
+        grid.innerHTML = "";
+      }
+
+      function isValidScorer(s) {
+        return s && s.name && s.url;
+      }
+
+      function goTo(url) {
+        window.location.href = url;
+      }
+
+      function createCard(scorer) {
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "card";
+
+        const name = document.createElement("div");
+        name.className = "name";
+        name.textContent = scorer.name;
+
+        card.appendChild(name);
+        card.addEventListener("click", () => goTo(scorer.url));
+
+        return card;
+      }
+
+      async function loadScorers(bustCache = false) {
+        clearGrid();
+        const url = bustCache ? `${CONFIG_URL}?v=${Date.now()}` : CONFIG_URL;
+
+        try {
+          const res = await fetch(url, { cache: "no-store" });
+          const data = await res.json();
+          const list = Array.isArray(data.scorers) ? data.scorers : [];
+
+          list.filter(isValidScorer).forEach(s => {
+            grid.appendChild(createCard(s));
+          });
+        } catch (e) {
+          console.error("Failed to load scorers.json", e);
+        }
+      }
+
+      loadScorers();
+    })();
+  </script>
+</body>
+</html>
