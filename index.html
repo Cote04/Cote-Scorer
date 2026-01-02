@@ -8,23 +8,20 @@
 
   <style>
     :root{
-      --bg: #050816;
+      --bg:#050816;
       --bg2:#0b1224;
-      --panel: rgba(17,24,39,0.72);
-      --panel2: rgba(17,24,39,0.58);
-      --card: rgba(17,24,39,0.78);
-      --border: rgba(148,163,184,0.18);
-      --border2: rgba(148,163,184,0.26);
 
-      --text: #f9fafb;
+      --text:#f9fafb;
       --muted:#9ca3af;
 
       --accent:#f97316;
-      --accentSoft: rgba(249,115,22,0.18);
+      --accent2:#fb923c;
 
-      --radius: 18px;
-      --shadow: 0 16px 40px rgba(0,0,0,0.35);
-      --shadow2: 0 10px 24px rgba(0,0,0,0.25);
+      --border: rgba(148,163,184,0.18);
+      --shadow: 0 18px 45px rgba(0,0,0,0.38);
+      --shadow2: 0 12px 26px rgba(0,0,0,0.26);
+
+      --radius: 20px;
     }
 
     *{ box-sizing:border-box; }
@@ -41,7 +38,6 @@
       overflow-x:hidden;
     }
 
-    /* Safe area for mobile */
     .safe{
       padding-top: max(14px, env(safe-area-inset-top));
       padding-bottom: max(14px, env(safe-area-inset-bottom));
@@ -51,236 +47,140 @@
     }
 
     .wrap{
-      max-width: 860px;
+      max-width: 720px;
       margin: 0 auto;
       padding: 18px 14px 18px;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+      min-height: calc(100vh - max(14px, env(safe-area-inset-top)) - max(14px, env(safe-area-inset-bottom)));
     }
 
-    /* Header */
+    /* Header (simple) */
     .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding: 14px 14px;
       border: 1px solid var(--border);
-      background: var(--panel);
+      background: rgba(17,24,39,0.72);
       backdrop-filter: blur(10px);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow2);
+      padding: 14px 14px;
       position: sticky;
       top: max(10px, env(safe-area-inset-top));
       z-index: 10;
     }
 
-    .brand{
-      min-width:0;
-      display:flex;
-      flex-direction:column;
-      gap: 4px;
-    }
-
-    .brand h1{
+    .title{
       margin:0;
       font-size: 18px;
+      font-weight: 850;
       letter-spacing: 0.2px;
-      line-height:1.1;
-      white-space: nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
       display:flex;
       align-items:center;
       gap:10px;
     }
 
-    .brand h1 .mark{
+    .mark{
       width: 10px;
       height: 10px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #fb923c, #f97316);
+      background: radial-gradient(circle at 30% 30%, var(--accent2), var(--accent));
       box-shadow: 0 0 18px rgba(249,115,22,0.35);
       flex: 0 0 auto;
     }
 
-    .brand p{
-      margin:0;
+    .subtitle{
+      margin: 6px 0 0;
       font-size: 13px;
       color: var(--muted);
-      white-space: nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
     }
 
-    .btn{
-      border: 1px solid var(--border2);
-      background: linear-gradient(180deg, rgba(31,41,55,0.85), rgba(17,24,39,0.85));
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 14px;
-      font-weight: 750;
-      font-size: 13px;
-      cursor:pointer;
-      box-shadow: var(--shadow2);
-      transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
-      user-select:none;
-      touch-action: manipulation;
-    }
-
-    .btn:hover{
-      transform: translateY(-1px);
-      border-color: rgba(249,115,22,0.55);
-      box-shadow: 0 14px 28px rgba(0,0,0,0.30), 0 0 0 3px rgba(249,115,22,0.10);
-    }
-    .btn:active{ transform: translateY(0px); }
-    .btn:focus-visible{
-      outline:none;
-      box-shadow: 0 0 0 4px rgba(249,115,22,0.22), var(--shadow2);
-      border-color: rgba(249,115,22,0.7);
-    }
-
-    /* Panel */
-    .content{ margin-top: 16px; }
-
-    .panel{
-      border: 1px solid var(--border);
-      background: var(--panel2);
-      backdrop-filter: blur(10px);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 14px;
-    }
-
-    .panel h2{
-      margin: 0 0 10px;
-      font-size: 14px;
-      letter-spacing: 0.2px;
-      color: rgba(255,255,255,0.92);
-    }
-
-    /* Clean “shelf” list */
+    /* Kiosk-style big buttons */
     .list{
       display:flex;
-      flex-direction: column;
-      gap: 10px;
+      flex-direction:column;
+      gap: 14px;
+      margin-top: 4px;
+      flex: 1 1 auto;
     }
 
-    .item{
-      width: 100%;
-      border: 1px solid var(--border);
-      background: rgba(17,24,39,0.78);
-      border-radius: 16px;
-      padding: 12px;
-      display:flex;
-      align-items:center;
-      gap: 12px;
+    .bigbtn{
+      width:100%;
+      border: 1px solid rgba(249,115,22,0.35);
+      border-radius: 24px;
+      background:
+        radial-gradient(900px 220px at 25% 20%, rgba(249,115,22,0.22), transparent 55%),
+        linear-gradient(180deg, rgba(31,41,55,0.92), rgba(17,24,39,0.92));
+      box-shadow: var(--shadow);
+      padding: 18px 16px;
       cursor:pointer;
-      text-align:left;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.20);
-      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease, box-shadow 140ms ease;
+      text-align:center;
       user-select:none;
       touch-action: manipulation;
-    }
-
-    .item:hover{
-      transform: translateY(-1px);
-      border-color: rgba(249,115,22,0.35);
-      background: rgba(17,24,39,0.86);
-      box-shadow: 0 14px 26px rgba(0,0,0,0.28);
-    }
-
-    .item:active{ transform: translateY(0px); }
-
-    .item:focus-visible{
-      outline:none;
-      box-shadow: 0 0 0 4px rgba(249,115,22,0.18), 0 14px 26px rgba(0,0,0,0.28);
-      border-color: rgba(249,115,22,0.55);
-    }
-
-    /* Icon tile fixes “white edge” issue by normalizing presentation */
-    .icon-tile{
-      width: 60px;
-      height: 60px;
-      border-radius: 14px;
-      flex: 0 0 60px;
-      border: 1px solid rgba(148,163,184,0.22);
-      background:
-        radial-gradient(120px 80px at 30% 30%, var(--accentSoft), transparent 70%),
-        linear-gradient(180deg, rgba(31,41,55,0.95), rgba(17,24,39,0.95));
-      box-shadow: inset 0 0 0 1px rgba(249,115,22,0.06);
-      overflow:hidden;
-      display:grid;
-      place-items:center;
+      transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
       position: relative;
-    }
-
-    /* Slight zoom helps hide any edge glow on non-transparent PNGs */
-    .icon-tile img{
-      width: 110%;
-      height: 110%;
-      margin: -5%;
-      object-fit: cover;
-      display:block;
-      border-radius: 12px;
-      filter: saturate(1.05) contrast(1.05);
-    }
-
-    .placeholder{
-      font-weight: 900;
-      font-size: 16px;
-      letter-spacing: 0.6px;
-      color: rgba(249,115,22,0.92);
-      text-shadow: 0 10px 18px rgba(0,0,0,0.35);
-    }
-
-    /* Text: prioritize readability */
-    .meta{
-      flex: 1 1 auto;
-      min-width: 0;
-      display:flex;
-      flex-direction:column;
-      gap: 3px;
-    }
-
-    .title{
-      margin:0;
-      font-size: 18px;         /* BIGGER for readability */
-      font-weight: 900;
-      color: rgba(255,255,255,0.96);
-      letter-spacing: 0.2px;
-      line-height: 1.15;
-      white-space: nowrap;
       overflow:hidden;
-      text-overflow: ellipsis;
-      text-shadow: 0 1px 0 rgba(0,0,0,0.35);
     }
 
-    .subtitle{
+    /* subtle sheen */
+    .bigbtn::before{
+      content:"";
+      position:absolute;
+      top:-40%;
+      left:-30%;
+      width: 60%;
+      height: 180%;
+      transform: rotate(18deg);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
+      opacity: 0.55;
+      pointer-events:none;
+    }
+
+    .bigbtn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(249,115,22,0.60);
+      box-shadow: 0 22px 55px rgba(0,0,0,0.42);
+    }
+    .bigbtn:active{ transform: translateY(0px); }
+    .bigbtn:focus-visible{
+      outline:none;
+      box-shadow: 0 0 0 4px rgba(249,115,22,0.22), 0 22px 55px rgba(0,0,0,0.42);
+      border-color: rgba(249,115,22,0.75);
+    }
+
+    .bigbtn .name{
       margin:0;
-      font-size: 12.5px;
-      color: rgba(156,163,175,0.95);
+      font-size: 28px; /* HUGE for readability */
+      font-weight: 950;
+      letter-spacing: 0.4px;
+      line-height: 1.1;
+      color: rgba(255,255,255,0.98);
+      text-shadow: 0 2px 0 rgba(0,0,0,0.35), 0 16px 30px rgba(0,0,0,0.35);
       white-space: nowrap;
       overflow:hidden;
       text-overflow: ellipsis;
     }
 
-    .chev{
-      flex: 0 0 auto;
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      display:grid;
-      place-items:center;
-      border: 1px solid rgba(249,115,22,0.28);
-      background: rgba(249,115,22,0.08);
+    .bigbtn .hint{
+      margin: 10px 0 0;
+      font-size: 14px;
       color: rgba(249,115,22,0.95);
-      box-shadow: 0 10px 18px rgba(0,0,0,0.18);
-      font-size: 18px;
-      line-height: 1;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
     }
 
-    /* Footer EXACT quiet style */
-    .app-footer {
-      margin-top: 16px;
+    .bigbtn .hint span{
+      display:inline-block;
+      border: 1px solid rgba(249,115,22,0.35);
+      background: rgba(249,115,22,0.10);
+      padding: 8px 12px;
+      border-radius: 999px;
+      box-shadow: 0 12px 20px rgba(0,0,0,0.18);
+    }
+
+    /* Footer (Canadian Salad quiet style) */
+    .app-footer{
+      margin-top: 8px;
       padding-bottom: env(safe-area-inset-bottom);
       text-align: center;
       font-size: 12px;
@@ -289,14 +189,23 @@
       user-select: none;
     }
 
-    /* Small error box if JSON fails */
-    .error {
+    /* Minimal error box */
+    .error{
       border: 1px solid rgba(239,68,68,0.35);
       background: rgba(239,68,68,0.10);
       color: rgba(254,202,202,0.95);
-      border-radius: 14px;
-      padding: 12px 14px;
+      border-radius: 16px;
+      padding: 14px 14px;
       font-size: 13px;
+      text-align:center;
+    }
+
+    /* Make the big titles wrap on very small screens */
+    @media (max-width: 360px){
+      .bigbtn .name{
+        font-size: 24px;
+        white-space: normal;
+      }
     }
   </style>
 </head>
@@ -306,133 +215,75 @@
     <div class="wrap">
 
       <header class="topbar">
-        <div class="brand">
-          <h1><span class="mark"></span>Scorekeeper Hub10</h1>
-          <p>Select a scorer to start a game</p>
-        </div>
-        <button id="reloadBtn" class="btn">⟳ Reload</button>
+        <h1 class="title"><span class="mark"></span>Scorekeeper Hub</h1>
+        <p class="subtitle">Tap a game to start</p>
       </header>
 
-      <main class="content">
-        <section class="panel">
-          <h2>Available Scorers</h2>
-          <div id="list" class="list"></div>
-        </section>
+      <main>
+        <div id="list" class="list"></div>
       </main>
 
-      <footer class="app-footer">
-        Cote Free Time Productions
-      </footer>
-
+      <footer class="app-footer">Cote Free Time Productions</footer>
     </div>
   </div>
 
   <script>
-    (function () {
+    (function(){
       const CONFIG_URL = "./scorers.json";
       const listEl = document.getElementById("list");
-      const reloadBtn = document.getElementById("reloadBtn");
 
-      reloadBtn.addEventListener("click", () => loadScorers(true));
-
-      function clearList(){ listEl.innerHTML = ""; }
+      function clear(){ listEl.innerHTML = ""; }
 
       function isValidScorer(s){
         return s && typeof s.name === "string" && s.name.trim()
                && typeof s.url === "string" && s.url.trim();
       }
 
-      function goTo(url){ window.location.href = url; }
-
-      function initials(name){
-        const parts = name.trim().split(/\s+/).slice(0,2);
-        return parts.map(p => (p[0] || "").toUpperCase()).join("");
+      function goTo(url){
+        window.location.href = url;
       }
 
-      function createIcon(imageUrl, name){
-        const tile = document.createElement("div");
-        tile.className = "icon-tile";
-
-        if (imageUrl && typeof imageUrl === "string" && imageUrl.trim()){
-          const img = document.createElement("img");
-          img.alt = `${name} icon`;
-          img.loading = "lazy";
-          img.src = imageUrl.trim();
-          img.onerror = () => {
-            tile.innerHTML = "";
-            const ph = document.createElement("div");
-            ph.className = "placeholder";
-            ph.textContent = initials(name);
-            tile.appendChild(ph);
-          };
-          tile.appendChild(img);
-        } else {
-          const ph = document.createElement("div");
-          ph.className = "placeholder";
-          ph.textContent = initials(name);
-          tile.appendChild(ph);
-        }
-
-        return tile;
-      }
-
-      function createRow(scorer){
+      function makeButton(scorer){
         const btn = document.createElement("button");
         btn.type = "button";
-        btn.className = "item";
+        btn.className = "bigbtn";
         btn.setAttribute("aria-label", `Open ${scorer.name} scorer`);
 
-        const icon = createIcon(scorer.image, scorer.name);
+        const name = document.createElement("p");
+        name.className = "name";
+        name.textContent = scorer.name;
 
-        const meta = document.createElement("div");
-        meta.className = "meta";
+        const hint = document.createElement("p");
+        hint.className = "hint";
+        hint.innerHTML = "<span>Tap to Start</span>";
 
-        const title = document.createElement("p");
-        title.className = "title";
-        title.textContent = scorer.name;
-
-        const subtitle = document.createElement("p");
-        subtitle.className = "subtitle";
-        subtitle.textContent = "Scorekeeper";
-
-        const chev = document.createElement("div");
-        chev.className = "chev";
-        chev.textContent = "›";
-
-        meta.appendChild(title);
-        meta.appendChild(subtitle);
-
-        btn.appendChild(icon);
-        btn.appendChild(meta);
-        btn.appendChild(chev);
+        btn.appendChild(name);
+        btn.appendChild(hint);
 
         btn.addEventListener("click", () => goTo(scorer.url.trim()));
-
         return btn;
       }
 
-      async function loadScorers(bustCache=false){
-        clearList();
-        const url = bustCache ? `${CONFIG_URL}?v=${Date.now()}` : CONFIG_URL;
-
+      async function load(){
+        clear();
         try{
-          const res = await fetch(url, { cache: "no-store" });
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const res = await fetch(CONFIG_URL, { cache: "no-store" });
+          if(!res.ok) throw new Error(`HTTP ${res.status}`);
           const data = await res.json();
-          const list = Array.isArray(data.scorers) ? data.scorers : [];
+          const scorers = Array.isArray(data.scorers) ? data.scorers : [];
 
-          const valid = list.filter(isValidScorer);
-          valid.forEach(s => listEl.appendChild(createRow(s)));
-
-          if (valid.length === 0){
+          const valid = scorers.filter(isValidScorer);
+          if(valid.length === 0){
             const msg = document.createElement("div");
             msg.className = "error";
             msg.textContent = "No scorers found in scorers.json.";
             listEl.appendChild(msg);
+            return;
           }
 
-        } catch (e){
-          console.error("Failed to load scorers.json", e);
+          valid.forEach(s => listEl.appendChild(makeButton(s)));
+        } catch(e){
+          console.error(e);
           const msg = document.createElement("div");
           msg.className = "error";
           msg.textContent = "Could not load scorers.json. (If running from file://, use a local server or GitHub Pages.)";
@@ -440,7 +291,7 @@
         }
       }
 
-      loadScorers();
+      load();
     })();
   </script>
 </body>
