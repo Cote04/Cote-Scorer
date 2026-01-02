@@ -223,6 +223,21 @@
       opacity: 0.9;
       padding-left: 6px;
     }
+	
+    /* ============================
+       Footer line
+       ============================ */
+    .app-footer {
+      margin-top: 0.75rem;
+      padding: 0.6rem 0.2rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      border-top: 1px solid rgba(148,163,184,0.18);
+    }
+	
   </style>
 </head>
 
@@ -246,6 +261,12 @@
       </main>
 
     </div>
+    <!-- Footer line -->
+    <div class="app-footer">
+      <span>Cote Free Time Productions</span>
+      <span id="versionLabel"></span>
+    </div>
+	
   </div>
 
   <script>
@@ -253,6 +274,10 @@
       const CONFIG_URL = "./scorers.json";
       const listEl = document.getElementById("list");
       const reloadBtn = document.getElementById("reloadBtn");
+
+      const APP_VERSION = "v1.0.0";
+      const versionLabel = document.getElementById("versionLabel");
+      if (versionLabel) versionLabel.textContent = APP_VERSION;
 
       reloadBtn.addEventListener("click", () => loadScorers(true));
 
