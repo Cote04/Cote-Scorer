@@ -1,15 +1,18 @@
+
 {
-  "version": 1,
+  "version": 2,
   "scorers": [
     {
       "id": "canadian-salad",
       "name": "Canadian Salad",
-      "url": "https://cote04.github.io/Canadian-Salad-Scorekeeper/"
+      "url": "https://cote04.github.io/Canadian-Salad-Scorekeeper/",
+      "image": "./assets/canadiansalad.png"
     },
     {
       "id": "five-crowns",
       "name": "Five Crowns",
-      "url": "https://cote04.github.io/Five-Crowns-Scorekeeper/"
+      "url": "https://cote04.github.io/Five-Crowns-Scorekeeper/",
+      "image": "./assets/fivecrowns.png"
     }
   ]
 }
