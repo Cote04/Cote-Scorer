@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "scorers": [
+    {
+      "id": "canadian-salad",
+      "name": "Canadian Salad",
+      "url": "https://cote04.github.io/Canadian-Salad-Scorekeeper/"
+    },
+    {
+      "id": "five-crowns",
+      "name": "Five Crowns",
+      "url": "https://cote04.github.io/Five-Crowns-Scorekeeper/"
+    }
+  ]
+}
