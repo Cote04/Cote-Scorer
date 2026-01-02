@@ -312,16 +312,11 @@
         name.className = "name";
         name.textContent = scorer.name;
 
-        const hint = document.createElement("p");
-        hint.className = "hint";
-        hint.textContent = "Tap to open";
-
         const chev = document.createElement("div");
         chev.className = "chev";
         chev.textContent = "›";
 
         meta.appendChild(name);
-        meta.appendChild(hint);
 
         card.appendChild(thumb);
         card.appendChild(meta);
