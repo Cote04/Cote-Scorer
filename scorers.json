@@ -6,13 +6,13 @@
       "id": "canadian-salad",
       "name": "Canadian Salad",
       "url": "https://cote04.github.io/Canadian-Salad-Scorekeeper/",
-      "image": "./assets/canadiansalad.png"
+      "image": "./assets/CanadianSalad.png"
     },
     {
       "id": "five-crowns",
       "name": "Five Crowns",
       "url": "https://cote04.github.io/Five-Crowns-Scorekeeper/",
-      "image": "./assets/fivecrowns.png"
+      "image": "./assets/FiveCrowns.png"
     }
   ]
 }
