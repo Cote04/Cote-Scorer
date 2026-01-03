@@ -9,6 +9,8 @@
     :root{
       --bg0:#050816;
       --bg1:#0b1022;
+      --card:#101a33;
+      --card2:#0c1328;
       --text:#f3f6ff;
       --muted:rgba(243,246,255,.68);
       --stroke:rgba(255,255,255,.10);
@@ -35,6 +37,7 @@
       overflow-x:hidden;
     }
 
+    /* App shell */
     .app{
       min-height:100%;
       display:flex;
@@ -45,6 +48,7 @@
       margin: 0 auto;
     }
 
+    /* Top bar */
     .topbar{
       display:flex;
       align-items:center;
@@ -67,6 +71,7 @@
       display:flex; align-items:center; gap:10px;
       min-width: 0;
     }
+
     .brand-badge{
       width:42px; height:42px;
       border-radius: 14px;
@@ -78,6 +83,7 @@
       border: 1px solid rgba(255,255,255,.14);
       flex: 0 0 auto;
     }
+
     .brand h1{
       font-size: 18px;
       margin:0;
@@ -87,6 +93,7 @@
       overflow:hidden;
       text-overflow:ellipsis;
     }
+
     .brand .sub{
       font-size: 12.5px;
       color: var(--muted);
@@ -102,6 +109,7 @@
       gap:10px;
       flex: 0 0 auto;
     }
+
     .iconbtn{
       width:42px; height:42px;
       border-radius: 14px;
@@ -118,6 +126,7 @@
     .iconbtn:active{ transform: scale(.98); }
     .iconbtn svg{ width:19px; height:19px; opacity:.92; }
 
+    /* Search row */
     .searchRow{
       display:flex;
       gap:10px;
@@ -162,6 +171,7 @@
     .pill:active{ transform: scale(.99); }
     .pill .dot{ width:8px; height:8px; border-radius:50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent2); }
 
+    /* Section title */
     .sectionTitle{
       display:flex;
       align-items:baseline;
@@ -182,6 +192,7 @@
       color: var(--muted);
     }
 
+    /* Grid */
     .grid{
       display:grid;
       grid-template-columns: repeat(2, minmax(0,1fr));
@@ -194,6 +205,7 @@
       .grid{ grid-template-columns: repeat(4, minmax(0,1fr)); }
     }
 
+    /* Game card */
     .card{
       position:relative;
       border-radius: var(--radius);
@@ -246,12 +258,13 @@
       padding: 10px;
       filter: drop-shadow(0 12px 16px rgba(0,0,0,.35));
     }
-    .logoWrap.hasTrans{
+    /* For logos that have transparency but still look “boxed”, this can help */
+/*    .logoWrap.hasTrans{
       background:
         radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,.12), transparent 65%),
         rgba(0,0,0,.18);
     }
-
+*/
     .meta{
       display:flex;
       flex-direction:column;
@@ -292,7 +305,7 @@
       line-height:1.25;
       margin:0;
       display:-webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 6;
       -webkit-box-orient: vertical;
       overflow:hidden;
       min-height: 32px;
@@ -334,6 +347,7 @@
     }
     .play svg{ width:14px; height:14px; }
 
+    /* Empty state */
     .empty{
       border: 1px dashed rgba(255,255,255,.18);
       border-radius: var(--radius);
@@ -342,32 +356,10 @@
       color: rgba(243,246,255,.80);
       text-align:center;
       box-shadow: 0 14px 40px rgba(0,0,0,.18);
-      display:none;
     }
     .empty p{ margin: 8px 0 0; color: var(--muted); font-size: 13px; }
 
-    .errorBox{
-      border: 1px solid rgba(255,107,107,.35);
-      border-radius: var(--radius);
-      padding: 16px;
-      background: rgba(255,107,107,.08);
-      box-shadow: 0 14px 40px rgba(0,0,0,.18);
-      display:none;
-    }
-    .errorBox strong{ display:block; font-size: 14px; }
-    .errorBox code{
-      display:block;
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(0,0,0,.25);
-      border: 1px solid rgba(255,255,255,.10);
-      color: rgba(243,246,255,.92);
-      font-size: 12px;
-      overflow:auto;
-      white-space: pre-wrap;
-    }
-
+    /* Modal */
     .modalBackdrop{
       position:fixed;
       inset:0;
@@ -443,6 +435,7 @@
       cursor:pointer;
     }
 
+    /* Tiny toast */
     .toast{
       position:fixed;
       left:50%;
@@ -464,6 +457,7 @@
     }
     .toast.show{ display:block; animation: pop .18s ease-out; }
     @keyframes pop { from{ transform: translateX(-50%) translateY(8px); opacity:.0 } to{ transform: translateX(-50%) translateY(0); opacity:1 } }
+
   </style>
 </head>
 
@@ -473,13 +467,14 @@
       <div class="brand" role="banner">
         <div class="brand-badge" aria-hidden="true"></div>
         <div style="min-width:0;">
-          <h1 id="appTitle">Card Scorer</h1>
-          <div class="sub" id="subtitle">Loading scorers…</div>
+          <h1>Card Scorer</h1>
+          <div class="sub" id="subtitle">2 scorers • ready for more</div>
         </div>
       </div>
 
       <div class="actions">
         <button class="iconbtn" id="btnSearch" title="Focus search" aria-label="Focus search">
+          <!-- search icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="11" cy="11" r="7"></circle>
             <path d="M20 20l-3.2-3.2"></path>
@@ -487,6 +482,7 @@
         </button>
 
         <button class="iconbtn" id="btnSettings" title="Settings" aria-label="Settings">
+          <!-- sliders icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M4 21v-7"></path><path d="M4 10V3"></path>
             <path d="M12 21v-9"></path><path d="M12 8V3"></path>
@@ -517,23 +513,15 @@
       <div class="count" id="countLabel">—</div>
     </div>
 
-    <div id="errorBox" class="errorBox">
-      <strong>Couldn’t load scorers.json</strong>
-      <div style="margin-top:6px;color:var(--muted);font-size:13px;line-height:1.35;">
-        This page is <em>config-driven</em> and requires <b>scorers.json</b> to be readable via HTTP.
-        If you opened this with <code>file://</code>, your browser may block <code>fetch()</code>.
-      </div>
-      <code id="errorDetails"></code>
-    </div>
-
     <main id="grid" class="grid" aria-label="Game scorer grid"></main>
 
-    <div id="empty" class="empty">
+    <div id="empty" class="empty" style="display:none;">
       <strong>No matches</strong>
       <p>Try a different search.</p>
     </div>
   </div>
 
+  <!-- Settings / Manage Games sheet -->
   <div class="modalBackdrop" id="backdrop" role="dialog" aria-modal="true" aria-label="Settings">
     <div class="sheet">
       <div class="sheetHead">
@@ -545,24 +533,61 @@
           </svg>
         </div>
       </div>
-      <div class="sheetBody" id="sheetBody"></div>
+      <div class="sheetBody" id="sheetBody">
+        <!-- filled by JS -->
+      </div>
     </div>
   </div>
 
   <div class="toast" id="toast">Saved</div>
 
   <script>
-    const CONFIG_URL = "./scorers.json";
+    /*****************************************************************
+     * CONFIG (inline fallback)
+     * - You can ALSO place a scorers.json next to this file.
+     * - If running from file://, many browsers block fetch() for local
+     *   files. Inline fallback will still work.
+     *****************************************************************/
+    const INLINE_CONFIG = {
+      appTitle: "Card Scorer",
+      subtitle: "2 scorers • ready for more",
+      configUrl: "./scorers.json", // optional external config
+      scorers: [
+        {
+          id: "canadian-salad",
+          name: "Canadian Salad",
+          description: "Fast scoring with rule helpers, colors, and winner highlight.",
+          tag: "Popular",
+          themeGlow: "rgba(249,115,22,.30)",
+          logo: "./assets/canadian-salad.png",  // change to your transparent PNG path
+          route: "./canadian-salad/index.html", // or "./CanadianSaladScorer.html"
+          lastPlayed: "Yesterday"
+        },
+        {
+          id: "five-crowns",
+          name: "Five Crowns",
+          description: "Round-by-round scoring with wild cards and totals.",
+          tag: "New",
+          themeGlow: "rgba(99,102,241,.30)",
+          logo: "./assets/five-crowns.png",
+          route: "./five-crowns/index.html",
+          lastPlayed: "Dec 30"
+        }
+      ]
+    };
 
+    /*****************************************************************
+     * STATE
+     *****************************************************************/
     const state = {
-      density: localStorage.getItem("hub_density") || "comfort",
+      density: localStorage.getItem("hub_density") || "comfort", // comfort | compact
       q: "",
-      config: null
+      config: null,
+      filtered: []
     };
 
     const els = {
       title: document.querySelector("title"),
-      appTitle: document.getElementById("appTitle"),
       subtitle: document.getElementById("subtitle"),
       grid: document.getElementById("grid"),
       empty: document.getElementById("empty"),
@@ -575,11 +600,12 @@
       sheetBody: document.getElementById("sheetBody"),
       pillView: document.getElementById("pillView"),
       pillText: document.getElementById("pillText"),
-      toast: document.getElementById("toast"),
-      errorBox: document.getElementById("errorBox"),
-      errorDetails: document.getElementById("errorDetails")
+      toast: document.getElementById("toast")
     };
 
+    /*****************************************************************
+     * HELPERS
+     *****************************************************************/
     function showToast(msg){
       els.toast.textContent = msg;
       els.toast.classList.add("show");
@@ -591,6 +617,7 @@
       state.density = d;
       localStorage.setItem("hub_density", d);
       els.pillText.textContent = d === "compact" ? "Compact" : "Comfort";
+      // tweak card min-height for compact mode
       document.documentElement.style.setProperty("--gap", d === "compact" ? "12px" : "14px");
       document.querySelectorAll(".card").forEach(card=>{
         card.style.minHeight = (d === "compact" ? "154px" : "170px");
@@ -604,17 +631,24 @@
       return `${n} of ${total}`;
     }
 
-    function openSheet(){ els.backdrop.classList.add("open"); }
-    function closeSheet(){ els.backdrop.classList.remove("open"); }
+    function openSheet(){
+      els.backdrop.classList.add("open");
+    }
+    function closeSheet(){
+      els.backdrop.classList.remove("open");
+    }
 
     function updateLastPlayed(id){
-      localStorage.setItem("hub_lastplayed_" + id, new Date().toISOString());
+      const key = "hub_lastplayed_" + id;
+      localStorage.setItem(key, new Date().toISOString());
     }
 
     function readLastPlayed(id){
-      const iso = localStorage.getItem("hub_lastplayed_" + id);
+      const key = "hub_lastplayed_" + id;
+      const iso = localStorage.getItem(key);
       if(!iso) return null;
       const dt = new Date(iso);
+      // simple friendly label
       const now = new Date();
       const diffDays = Math.floor((now - dt) / (1000*60*60*24));
       if (diffDays <= 0) return "Today";
@@ -622,16 +656,27 @@
       return dt.toLocaleDateString(undefined, { month: "short", day: "numeric" });
     }
 
+    /*****************************************************************
+     * RENDER
+     *****************************************************************/
     function render(){
       const cfg = state.config;
-      const all = (cfg && Array.isArray(cfg.scorers)) ? cfg.scorers : [];
+      const all = cfg.scorers || [];
 
       const q = normalize(state.q);
-      const filtered = all.filter(s => normalize(`${s.name} ${s.description} ${s.tag}`).includes(q));
+      const filtered = all.filter(s => {
+        const hay = normalize(`${s.name} ${s.description} ${s.tag}`);
+        return hay.includes(q);
+      });
+
+      state.filtered = filtered;
 
       els.grid.innerHTML = "";
       els.empty.style.display = filtered.length ? "none" : "block";
       els.count.textContent = formatCount(filtered.length, all.length);
+
+      // subtitle updates
+      els.subtitle.textContent = cfg.subtitle || `${all.length} scorers`;
 
       filtered.forEach(s => {
         const card = document.createElement("article");
@@ -648,27 +693,26 @@
         logoWrap.className = "logoWrap";
         if (s.logo) logoWrap.classList.add("hasTrans");
 
-        if (s.logo){
-          const img = document.createElement("img");
-          img.alt = `${s.name} logo`;
-          img.loading = "lazy";
-          img.src = s.logo;
-          img.onerror = () => {
-            img.remove();
-            const fallback = document.createElement("div");
-            fallback.style.width = "100%";
-            fallback.style.height = "100%";
-            fallback.style.display = "grid";
-            fallback.style.placeItems = "center";
-            fallback.style.fontSize = "20px";
-            fallback.style.fontWeight = "700";
-            fallback.style.letterSpacing = "0.5px";
-            fallback.style.color = "rgba(255,255,255,.9)";
-            fallback.textContent = (s.name || "?").split(" ").slice(0,2).map(w=>w[0]).join("").toUpperCase();
-            logoWrap.appendChild(fallback);
-          };
-          logoWrap.appendChild(img);
-        }
+        const img = document.createElement("img");
+        img.alt = `${s.name} logo`;
+        img.loading = "lazy";
+        img.src = s.logo || "";
+        img.onerror = () => {
+          // fallback: simple initials badge if image missing
+          img.remove();
+          const fallback = document.createElement("div");
+          fallback.style.width = "100%";
+          fallback.style.height = "100%";
+          fallback.style.display = "grid";
+          fallback.style.placeItems = "center";
+          fallback.style.fontSize = "20px";
+          fallback.style.fontWeight = "700";
+          fallback.style.letterSpacing = "0.5px";
+          fallback.style.color = "rgba(255,255,255,.9)";
+          fallback.textContent = (s.name || "?").split(" ").slice(0,2).map(w=>w[0]).join("").toUpperCase();
+          logoWrap.appendChild(fallback);
+        };
+        logoWrap.appendChild(img);
 
         const meta = document.createElement("div");
         meta.className = "meta";
@@ -727,9 +771,13 @@
         card.appendChild(inner);
 
         const openScorer = () => {
-          updateLastPlayed(s.id || "");
-          if (s.route) window.location.href = s.route;
-          else showToast("No route configured for this scorer.");
+          updateLastPlayed(s.id);
+          // If you want in-app navigation later, replace with router logic.
+          if (s.route) {
+            window.location.href = s.route;
+          } else {
+            showToast("No route configured for this scorer.");
+          }
         };
 
         card.addEventListener("click", openScorer);
@@ -740,14 +788,16 @@
         els.grid.appendChild(card);
       });
 
+      // apply density after cards exist
       setDensity(state.density);
     }
 
     function renderSheet(){
-      const cfg = state.config || {};
-      const all = Array.isArray(cfg.scorers) ? cfg.scorers : [];
+      const cfg = state.config;
+      const all = cfg.scorers || [];
       els.sheetBody.innerHTML = "";
 
+      // Global toggles (example)
       const row1 = document.createElement("div");
       row1.className = "row";
       row1.innerHTML = `
@@ -759,12 +809,13 @@
       `;
       els.sheetBody.appendChild(row1);
 
+      // Manage games list
       const header = document.createElement("div");
       header.style.marginTop = "6px";
       header.style.color = "rgba(243,246,255,.88)";
       header.style.fontSize = "13px";
       header.style.letterSpacing = ".25px";
-      header.textContent = "Games (from scorers.json)";
+      header.textContent = "Games (config-driven)";
       els.sheetBody.appendChild(header);
 
       all.forEach(s => {
@@ -772,72 +823,77 @@
         r.className = "row";
         r.innerHTML = `
           <div style="min-width:0;">
-            <strong style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${s.name || "Untitled"}</strong>
+            <strong style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${s.name}</strong>
             <span style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${s.route || "No route set"}</span>
           </div>
-          <button>Open</button>
+          <button data-open="${s.id}">Open</button>
         `;
         r.querySelector("button").addEventListener("click", () => {
           closeSheet();
-          updateLastPlayed(s.id || "");
+          updateLastPlayed(s.id);
           if (s.route) window.location.href = s.route;
           else showToast("No route configured.");
         });
         els.sheetBody.appendChild(r);
       });
 
-      row1.querySelector("#toggleDensity").addEventListener("click", () => {
+      // wiring for density button
+      const toggle = row1.querySelector("#toggleDensity");
+      toggle.addEventListener("click", () => {
         const next = state.density === "compact" ? "comfort" : "compact";
         setDensity(next);
-        render();
-        renderSheet();
+        render();      // rebuild cards with new sizing
+        renderSheet(); // update button label
         showToast("Updated");
       });
     }
 
+    /*****************************************************************
+     * LOAD CONFIG (external scorers.json if possible, else inline)
+     *****************************************************************/
     async function loadConfig(){
-      const res = await fetch(CONFIG_URL, { cache: "no-store" });
-      if (!res.ok) throw new Error(`HTTP ${res.status} while fetching ${CONFIG_URL}`);
-      const cfg = await res.json();
-      if (!cfg || !Array.isArray(cfg.scorers)) {
-        throw new Error("Invalid scorers.json: missing required array property 'scorers'.");
+      // start with inline
+      let cfg = structuredClone(INLINE_CONFIG);
+
+      // try external config (safe: if blocked/fails, fallback to inline)
+      try{
+        if (cfg.configUrl){
+          const res = await fetch(cfg.configUrl, { cache: "no-store" });
+          if (res.ok){
+            const external = await res.json();
+            // shallow merge so external can override title/subtitle/scorers
+            cfg = { ...cfg, ...external };
+          }
+        }
+      }catch(err){
+        // common when opened via file:// — fetch blocked
       }
 
+      // apply title/subtitle
+      document.querySelector(".brand h1").textContent = cfg.appTitle || "Card Scorer";
+      els.title.textContent = cfg.appTitle || "Card Scorer";
       state.config = cfg;
-      const title = cfg.appTitle || "Card Scorer";
-      els.appTitle.textContent = title;
-      els.title.textContent = title;
-      els.subtitle.textContent = cfg.subtitle || `${cfg.scorers.length} scorer${cfg.scorers.length===1?"":"s"}`;
 
-      els.errorBox.style.display = "none";
+      // subtitle count
+      const n = (cfg.scorers || []).length;
+      els.subtitle.textContent = cfg.subtitle || `${n} scorer${n===1?"":"s"}`;
+
       render();
       renderSheet();
     }
 
-    function showConfigError(err){
-      els.errorBox.style.display = "block";
-      els.errorDetails.textContent =
-`Tried: ${CONFIG_URL}
+    /*****************************************************************
+     * EVENTS
+     *****************************************************************/
+    els.input.addEventListener("input", (e)=>{
+      state.q = e.target.value;
+      render();
+    });
 
-Error: ${String(err && err.message ? err.message : err)}
+    els.btnSearch.addEventListener("click", ()=>{
+      els.input.focus();
+    });
 
-Tip: If you opened index.html directly from disk (file://),
-run a tiny local server instead (or use GitHub Pages).
-Example (from this folder):
-
-  python -m http.server 8000
-
-Then open:
-  http://localhost:8000/`;
-      els.subtitle.textContent = "Missing scorers.json (see details below)";
-      els.count.textContent = "—";
-      els.grid.innerHTML = "";
-      els.empty.style.display = "none";
-      renderSheet();
-    }
-
-    els.input.addEventListener("input", (e)=>{ state.q = e.target.value; render(); });
-    els.btnSearch.addEventListener("click", ()=> els.input.focus());
     els.pillView.addEventListener("click", ()=>{
       const next = state.density === "compact" ? "comfort" : "compact";
       setDensity(next);
@@ -846,16 +902,23 @@ Then open:
       showToast("Updated");
     });
 
-    els.btnSettings.addEventListener("click", openSheet);
+    els.btnSettings.addEventListener("click", ()=>{
+      openSheet();
+    });
     els.closeSheet.addEventListener("click", closeSheet);
-    els.backdrop.addEventListener("click", (e)=>{ if (e.target === els.backdrop) closeSheet(); });
-    window.addEventListener("keydown", (e)=>{ if (e.key === "Escape") closeSheet(); });
+    els.backdrop.addEventListener("click", (e)=>{
+      if (e.target === els.backdrop) closeSheet();
+    });
 
-    (async ()=>{
-      try { await loadConfig(); }
-      catch (err) { showConfigError(err); }
-      finally { setDensity(state.density); }
-    })();
+    // Escape closes sheet
+    window.addEventListener("keydown", (e)=>{
+      if (e.key === "Escape") closeSheet();
+    });
+
+    /*****************************************************************
+     * INIT
+     *****************************************************************/
+    loadConfig();
   </script>
 </body>
 </html>
