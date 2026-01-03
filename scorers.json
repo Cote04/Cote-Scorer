@@ -1,18 +1,26 @@
-
 {
-  "version": 2,
+  "appTitle": "Card Scorer",
+  "subtitle": "",
   "scorers": [
     {
       "id": "canadian-salad",
-      "name": "Canadian Salad2",
-      "url": "https://cote04.github.io/Canadian-Salad-Scorekeeper/",
-      "image": "./assets/CanadianSalad.png"
+      "name": "Canadian Salad",
+      "description": "Canadian Salad is a trick-taking card game where players try to avoid specific “bad” cards and tricks across multiple rounds, with the lowest total score winning.",
+      "tag": "Popular",
+      "themeGlow": "rgba(249,115,22,.30)",
+      "logo": "./assets/CanadianSalad.png",
+      "route": "https://cote04.github.io/Canadian-Salad-Scorekeeper/",
+      "lastPlayed": "Yesterday"
     },
     {
       "id": "five-crowns",
-      "name": "Five Crowns2",
-      "url": "https://cote04.github.io/Five-Crowns-Scorekeeper/",
-      "image": "./assets/FiveCrowns.png"
+      "name": "Five Crowns",
+      "description": "Five Crowns is a rummy-style card game where players build runs and sets over 11 rounds using rotating wild cards and five suits, aiming for the lowest total score.",
+      "tag": "New",
+      "themeGlow": "rgba(99,102,241,.30)",
+      "logo": "./assets/FiveCrowns.png",
+      "route": "https://cote04.github.io/Five-Crowns-Scorekeeper/",
+      "lastPlayed": "Dec 30"
     }
   ]
 }
